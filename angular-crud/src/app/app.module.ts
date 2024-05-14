@@ -9,6 +9,7 @@ import { CadastroDisciplinaComponent } from './_components/cad-disciplina/cad-di
 import { ListaDisciplinaComponent } from './_components/listar-disciplina/listar-disciplina.component';
 import { NavbarComponent } from './_components/navbar/navbar.component';
 import { FooterComponent } from './_components/footer/footer.component';
+import { HomeComponent } from './_components/home/home.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { FooterComponent } from './_components/footer/footer.component';
     ListaDisciplinaComponent,
     NavbarComponent,
     FooterComponent,
+    HomeComponent,
 
   ],
   imports: [

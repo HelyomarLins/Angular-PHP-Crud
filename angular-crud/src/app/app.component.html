@@ -1,13 +1,16 @@
 <app-navbar></app-navbar>
-<header>
-  <!-- Adicione botões para cadastrar e listar disciplinas -->
-  <button routerLink="/cadastrar-disciplina">Cadastrar Disciplina</button>
-  <button routerLink="/listar-disciplinas">Listar Disciplinas</button>
-  </header>
+<app-app>
 
-<main>
-  <!-- Exibir os componentes correspondentes às rotas -->
-  <router-outlet></router-outlet>
-</main>
+  <header>
+    <!-- Adicione botões para cadastrar e listar disciplinas -->
+    <button routerLink="/cadastrar-disciplina">Cadastrar Disciplina</button>
+    <button routerLink="/listar-disciplinas">Listar Disciplinas</button>
+    </header>
+
+  <main>
+    <!-- Exibir os componentes correspondentes às rotas -->
+    <router-outlet></router-outlet>
+  </main>
+</app-home>
 <app-footer></app-footer>
 
