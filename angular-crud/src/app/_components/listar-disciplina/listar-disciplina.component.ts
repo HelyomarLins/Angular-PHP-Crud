@@ -18,6 +18,7 @@ export class ListaDisciplinaComponent implements OnInit {
 
   listarDisciplinas() {
     // Função para obter a lista de disciplinas do servidor
+    console.log('Fazendo solicitação HTTP para obter lista de disciplinas...');
     this.http.get<any>('http://localhost/Angular-Crud/Angular-PHP-Crud/angular-crud/API/listar_disciplina.php')
       .subscribe(
         (response) => {
@@ -25,6 +26,7 @@ export class ListaDisciplinaComponent implements OnInit {
           console.log('Resposta do servidor:', response); // Exibe a resposta do servidor no console
           if (response.status === 'success') {
             this.disciplinas = response.disciplinas; // Preenche a variável disciplinas com os dados obtidos do servidor
+            console.log('Disciplinas obtidas com sucesso:', this.disciplinas); // Exibe as disciplinas no console
           } else {
             console.error('Erro ao obter lista de disciplinas:', response.message); // Exibe mensagem de erro no console
           }
@@ -35,4 +37,5 @@ export class ListaDisciplinaComponent implements OnInit {
         }
       );
   }
+
 }

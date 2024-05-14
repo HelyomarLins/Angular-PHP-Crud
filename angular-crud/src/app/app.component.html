@@ -1,17 +1,10 @@
-<!-- app.component.html -->
 <header>
-  <!-- Adicione links de navegação para cadastrar e listar disciplinas -->
-  <nav>
-    <ul>
-      <li><a routerLink="/cadastrar-disciplina">Cadastrar Disciplina</a></li>
-      <li><a routerLink="/listar-disciplinas">Listar Disciplinas</a></li>
-    </ul>
-  </nav>
-</header>
+  <!-- Adicione botões para cadastrar e listar disciplinas -->
+  <button routerLink="/cadastrar-disciplina">Cadastrar Disciplina</button>
+  <button routerLink="/listar-disciplinas">Listar Disciplinas</button>
+  </header>
 
-<!-- Adicione o RouterOutlet para exibir os componentes correspondentes às rotas -->
 <main>
+  <!-- Exibir os componentes correspondentes às rotas -->
   <router-outlet></router-outlet>
 </main>
-
-

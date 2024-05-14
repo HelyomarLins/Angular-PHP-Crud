@@ -86,7 +86,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "proxyConfig": "proxy.conf.json" // Adicione esta linha para configurar o proxy
+            "proxyConfig": "proxy.conf.json" 
           },
           "configurations": {
             "production": {

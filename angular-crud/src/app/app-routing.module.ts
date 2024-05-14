@@ -6,7 +6,7 @@ import { ListaDisciplinaComponent } from './_components/listar-disciplina/listar
 const routes: Routes = [
   { path: 'cadastrar-disciplina', component: CadastroDisciplinaComponent },
   { path: 'listar-disciplinas', component: ListaDisciplinaComponent },
-  { path: '', redirectTo: '/cadastrar-disciplina', pathMatch: 'full' } // Rota padrão redireciona para cadastrar-disciplina
+  { path: '', redirectTo: '/cadastrar-disciplina', pathMatch: 'full' }
 ];
 
 @NgModule({

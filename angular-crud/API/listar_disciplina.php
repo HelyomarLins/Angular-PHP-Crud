@@ -1,4 +1,12 @@
 <?php
+// Permite solicitações de qualquer origem
+header("Access-Control-Allow-Origin: *");
+// Permite solicitações com os métodos GET, POST, PUT, DELETE e OPTIONS
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+// Define o tipo de conteúdo permitido para a solicitação
+header("Access-Control-Allow-Headers: Content-Type");
+
+// Agora você pode lidar com sua lógica de negócios normalmente
 require_once 'conexao.php';
 
 // Consulta SQL para selecionar todas as disciplinas
