@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CadastroDisciplinaComponent } from './_components/cad-disciplina/cad-disciplina.component';
 import { ListaDisciplinaComponent } from './_components/listar-disciplina/listar-disciplina.component';
+import { NavbarComponent } from './_components/navbar/navbar.component';
+import { FooterComponent } from './_components/footer/footer.component';
 
 
 @NgModule({
@@ -14,6 +16,8 @@ import { ListaDisciplinaComponent } from './_components/listar-disciplina/listar
     AppComponent,
     CadastroDisciplinaComponent,
     ListaDisciplinaComponent,
+    NavbarComponent,
+    FooterComponent,
 
   ],
   imports: [
