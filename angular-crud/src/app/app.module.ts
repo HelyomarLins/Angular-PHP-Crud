@@ -6,12 +6,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CadastroDisciplinaComponent } from './_components/cad-disciplina/cad-disciplina.component';
+import { ListaDisciplinaComponent } from './_components/lista-disciplina/lista-disciplina.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CadastroDisciplinaComponent,
+    ListaDisciplinaComponent,
 
   ],
   imports: [
