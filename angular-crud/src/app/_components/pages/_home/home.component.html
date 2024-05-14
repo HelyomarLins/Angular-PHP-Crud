@@ -1,0 +1,69 @@
+<header class="bg-dark py-5">
+  <div class="container px-5 bg-dark">
+    <div class="row gx-5 align-items-center justify-content-center">
+      <div class="col-lg-8 col-xl-7 col-xxl-6">
+        <div class="my-5 text-center text-xl-start">
+          <h1 class="display-5 fw-bolder text-white mb-2">
+            Projeto CRUD ETEOT Angular, Bootstrap.5, PHP
+          </h1>
+          <p class="lead fw-normal text-white-50 mb-4">
+            Projeto construído com Angular no front-end para gerenciar clientes,
+            e o back-end em PHP cuidando das regras de negócio, APIs e banco de
+            dados.
+          </p>
+          <div
+            class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start"
+          >
+          <a id="link-login" class="btn btn-primary btn-lg px-4 me-sm-3" href="#" (click)="openModal()">Acesse</a>
+
+            <a class="btn btn-outline-light btn-lg px-4" href="#!"
+              >Faça seu cadastro.</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+        <img
+          class="img-fluid rounded-3 my-5"
+          src="https://dummyimage.com/600x400/343a40/6c757d"
+          alt="..."
+        />
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" #modal>
+  <div class="modal-dialog d-flex justify-content-center">
+    <div class="modal-content w-75">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Acessar</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body p-4">
+        <form>
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="email1" class="form-control" />
+            <label class="form-label" for="email1">Email/telefone</label>
+          </div>
+
+          <!-- password input -->
+          <div class="form-outline mb-4">
+            <input type="password" id="password1" class="form-control" />
+            <label class="form-label" for="password1">Senha</label>
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
