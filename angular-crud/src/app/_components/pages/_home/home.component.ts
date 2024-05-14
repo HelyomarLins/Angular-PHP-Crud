@@ -12,14 +12,16 @@ declare var bootstrap: any;
 })
 export class HomeComponent {
 
-  email: string = ''; 
+  email: string = '';
   senha: string = '';
+  mensagemErro: string = '';
   constructor(private elementRef: ElementRef, private authService: AutenticLoginService) {} // Injeta ElementRef para acessar o elemento do DOM
 
   // Método para abrir o modal
   openModal(): void {
     // Encontra o elemento do modal com o ID 'staticBackdrop1' no DOM
     const modalElement = this.elementRef.nativeElement.querySelector('#staticBackdrop1');
+
     if (modalElement) { // Verifica se o elemento do modal foi encontrado
       // Cria uma instância do modal e exibe-o
       const modalInstance = new bootstrap.Modal(modalElement);
@@ -35,12 +37,27 @@ export class HomeComponent {
     // Chame o método de login do serviço de autenticação
     this.authService.login(email, senha).subscribe(
       (response) => {
+        if (response.message === 'Login sucessful'){
+          alert('Login bem -sucedido¹');
+          // 1. Feche o modal:
+          const modalElement = this.elementRef.nativeElement.querySelector('#staticBackdrop1');
+          const modalInstance = new bootstrap.Modal(modalElement);
+          modalInstance.hide();
 
-        // Sucesso: faça algo com a resposta do backend, como redirecionar para outra página ou exibir uma mensagem de sucesso
+          // 3. Redirecione para a área logada:
+          // Se você estiver usando roteamento no Angular:
+          // this.router.navigate(['/dashboard']);
+
+        } else {
+            // Lidar com outros tipos de resposta, se houver
+          console.error('Erro no login:', response);
+          this.mensagemErro = 'Erro no login: ' + response.message;
+        }
       },
       (error) => {
-
-        // Erro: faça algo com o erro, como exibir uma mensagem de erro para o usuário
+        // Erro no login
+        console.error('Erro no login:', error);
+        this.mensagemErro = 'Erro no login. Verifique suas credenciais.';
       }
     );
   }

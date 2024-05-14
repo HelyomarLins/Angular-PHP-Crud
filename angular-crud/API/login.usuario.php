@@ -1,41 +1,40 @@
 <?php
+// Permite solicitações de qualquer origem
+header("Access-Control-Allow-Origin: *");
+// Permite solicitações com os métodos GET, POST, PUT, DELETE e OPTIONS
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+// Define o tipo de conteúdo permitido para a solicitação
+header("Access-Control-Allow-Headers: Content-Type");
 //conexao com banco de dados
 require_once 'conexao.php';
 
-// Verifica se foi uma solicitação POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//$email = $data['email'];
+//$senha = $data['senha'];
+$email = 'teste@teste';
+$senha = 12345;
 
-    // Recebe os dados de login do corpo da requisição
-    $data = json_decode(file_get_contents('php://input'), true);
+// Consulta SQL para verificar as credenciais
+$sql = "SELECT * FROM usuario WHERE email_usu = '$email'";
+$result = mysqli_query($conexao, $sql);
 
-    // Verifica se os dados de login foram recebidos
-    if (isset($data['email']) && isset($data['senha'])) {
+// Verifica se a consulta retornou algum resultado
+if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
 
-        // Verifica as credenciais no banco de dados (substitua com a sua lógica de verificação)
-        $email = $data['email'];
-        $senha = $data['senha'];
-        if ($email === 'usuario@example.com' && $senha === 'senha123') {
+    // Verifica se a senha está correta
+    if ($row['pass_usu'] == $senha) {
 
-            // Credenciais corretas, retorna uma resposta de sucesso
-            http_response_code(200);
-            echo json_encode(array('message' => 'Login successful'));
-
-        } else {
-
-            // Credenciais incorretas, retorna uma resposta de erro
-            http_response_code(401);
-            echo json_encode(array('message' => 'Invalid credentials'));
-        }
+        // Credenciais corretas
+        http_response_code(200);
+        echo json_encode(array('message' => 'Login successful'));
     } else {
-
-        // Dados de login não fornecidos, retorna uma resposta de erro
-        http_response_code(400);
-        echo json_encode(array('message' => 'Missing credentials'));
+        // Senha incorreta
+        http_response_code(401);
+        echo json_encode(array('message' => 'Invalid credentials'));
     }
 } else {
-  
-    // Método de requisição não suportado, retorna uma resposta de erro
-    http_response_code(405);
-    echo json_encode(array('message' => 'Method Not Allowed'));
+    // Usuário não encontrado
+    http_response_code(401);
+    echo json_encode(array('message' => 'Invalid credentials'));
 }
 ?>
