@@ -1,1 +1,17 @@
-<app-cad-disciplina></app-cad-disciplina>
+<!-- app.component.html -->
+<header>
+  <!-- Adicione links de navegação para cadastrar e listar disciplinas -->
+  <nav>
+    <ul>
+      <li><a routerLink="/cadastrar-disciplina">Cadastrar Disciplina</a></li>
+      <li><a routerLink="/listar-disciplinas">Listar Disciplinas</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Adicione o RouterOutlet para exibir os componentes correspondentes às rotas -->
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+

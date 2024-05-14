@@ -1,1 +1,22 @@
+<!-- lista-disciplina.component.html -->
+<h1>Lista de Disciplinas</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Sigla</th>
+      <th>Carga Horária</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let disciplina of disciplinas">
+      <td>{{ disciplina.id_disc }}</td>
+      <td>{{ disciplina.nome_disc }}</td>
+      <td>{{ disciplina.sigla_disc }}</td>
+      <td>{{ disciplina.ch_disc }}</td>
+    </tr>
+  </tbody>
+</table>
 
