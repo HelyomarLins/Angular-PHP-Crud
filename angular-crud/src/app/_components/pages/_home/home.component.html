@@ -34,29 +34,24 @@
 </header>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true" #modal>
+<div class="modal fade" id="staticBackdrop1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
   <div class="modal-dialog d-flex justify-content-center">
     <div class="modal-content w-75">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel1">Acessar</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-4">
-        <form>
+        <form (ngSubmit)="submitLogin(email, senha)"> <!-- Aqui estamos chamando a função submitLogin() quando o formulário é enviado -->
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="text" id="email1" class="form-control" />
+            <input type="text" id="email1" class="form-control" [(ngModel)]="email" name="email" />
             <label class="form-label" for="email1">Email/telefone</label>
           </div>
 
           <!-- password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="password1" class="form-control" />
+            <input type="password" id="password1" class="form-control" [(ngModel)]="senha" name="senha" />
             <label class="form-label" for="password1">Senha</label>
           </div>
 
