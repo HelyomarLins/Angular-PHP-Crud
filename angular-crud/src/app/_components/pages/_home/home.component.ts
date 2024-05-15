@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import $ from 'jquery';
+import { HttpErrorResponse } from '@angular/common/http';
 
 // Declaração da variável global bootstrap para acessar os recursos do Bootstrap
 declare var bootstrap: any;
@@ -42,7 +43,19 @@ export class HomeComponent {
         catchError(error => {
           // Trata erros HTTP aqui
           console.error('Erro HTTP:', error);
-          this.mensagemErro = 'Erro no servidor. Tente novamente mais tarde.';
+
+          if (error instanceof HttpErrorResponse) {
+            if (error.status === 400) {
+              this.mensagemErro = 'Dados de login inválidos. Verifique suas credenciais.';
+            } else if (error.status === 401) {
+              this.mensagemErro = 'Usuário ou senha incorretos.';
+            } else {
+              this.mensagemErro = 'Erro no servidor. Tente novamente mais tarde.';
+            }
+          } else {
+            this.mensagemErro = 'Erro desconhecido. Tente novamente mais tarde.';
+          }
+
           return of(null);
         })
       )

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,24 +20,24 @@ export class AutenticLoginService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    // Faz a requisição POST para a API e retorna um Observable
-    return this.http.post<any>(url, body, httpOptions);
+    return this.http.post<any>(url, body, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
-  // Método para salvar as informações do usuário após o login
-  salvarUsuario(usuario: any): void {
-    
-    localStorage.setItem('usuario', JSON.stringify(usuario));
-  }
-
-  // Método para obter as informações do usuário logado
-  getUsuarioLogado(): any {
-    // Obtém as informações do usuário do localStorage
-    const usuario = localStorage.getItem('usuario');
-    if (usuario) {
-      return JSON.parse(usuario);
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // Erro ocorreu no lado do cliente
+      console.error('Um erro ocorreu:', error.error.message);
     } else {
-      return null;
+      // O backend retornou um erro
+      console.error(
+        `Backend retornou código ${error.status}, ` +
+        `body foi: ${error.error}`);
     }
+
+    // retorna um Observable com um erro para que possa ser tratado pelo subscribe
+    return of(null); // ou throwError(error); para propagar o erro para a camada superior
   }
 }
