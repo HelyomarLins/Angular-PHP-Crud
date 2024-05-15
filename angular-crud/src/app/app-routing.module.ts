@@ -5,10 +5,10 @@ import { ListaDisciplinaComponent } from './_components/listar-disciplina/listar
 import { HomeComponent } from './_components/pages/_home/home.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  { path: 'home', component: HomeComponent }, // Rota para HomeComponent
   { path: 'cadastrar-disciplina', component: CadastroDisciplinaComponent },
   { path: 'listar-disciplinas', component: ListaDisciplinaComponent },
-  { path: '', redirectTo: '/cadastrar-disciplina', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' } // Redireciona para HomeComponent
 ];
 
 @NgModule({

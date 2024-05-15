@@ -9,6 +9,12 @@ header("Access-Control-Allow-Headers: Content-Type");
 //conexao com banco de dados
 require_once 'conexao.php';
 
+// Tratamento da requisição OPTIONS
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+  http_response_code(200);
+  exit();
+}
+
 // Verifica se foi uma solicitação POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -18,8 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verifica se os dados de login foram recebidos
     if (isset($data['email']) && isset($data['senha'])) {
 
-        $email = 'teste@teste';
-        $senha = '12345';
+        $email = $data['email'];
+        $senha = $data['senha'];
+
         // Consulta SQL para verificar as credenciais
         $sql = "SELECT * FROM usuario WHERE email_usu = '$email'";
         $result = mysqli_query($conexao, $sql);
