@@ -24,7 +24,7 @@ export class HomeComponent {
   constructor(private elementRef: ElementRef, private authService: AutenticLoginService, private router: Router) {}
 
   // Método para abrir o modal
-  openModal(): void {
+  openModal(modalId: string): void {
     const modalElement = this.elementRef.nativeElement.querySelector('#staticBackdrop1');
     if (modalElement) {
       const modalInstance = new bootstrap.Modal(modalElement);
