@@ -55,7 +55,13 @@ export class HomeComponent {
 
             // 1. Feche o modal:
             const modalElement = this.elementRef.nativeElement.querySelector('#staticBackdrop1');
-            
+            if (modalElement) {
+              const modalInstance = new bootstrap.Modal(modalElement);
+              modalInstance.hide(); // Use 'hide()' para fechar o modal
+            } else {
+              console.error('Modal element not found.');
+            }
+
             // 3. Redirecione para a área logada:
             this.router.navigate(['/listar-disciplinas']);
           } else {

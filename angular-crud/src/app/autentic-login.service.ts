@@ -18,6 +18,24 @@ export class AutenticLoginService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
-    return this.http.post(url, body, httpOptions);
+    // Faz a requisição POST para a API e retorna um Observable
+    return this.http.post<any>(url, body, httpOptions);
+  }
+
+  // Método para salvar as informações do usuário após o login
+  salvarUsuario(usuario: any): void {
+    
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+  }
+
+  // Método para obter as informações do usuário logado
+  getUsuarioLogado(): any {
+    // Obtém as informações do usuário do localStorage
+    const usuario = localStorage.getItem('usuario');
+    if (usuario) {
+      return JSON.parse(usuario);
+    } else {
+      return null;
+    }
   }
 }
