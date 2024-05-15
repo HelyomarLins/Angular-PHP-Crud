@@ -11,6 +11,7 @@ import { NavbarComponent } from './_components/pages/navbar/navbar.component';
 import { FooterComponent } from './_components/pages/footer/footer.component';
 import { HomeComponent } from './_components/pages/_home/home.component';
 import { BaseUiComponent } from './_components/base-ui/base-ui.component';
+import { CadUsuarioComponent } from './_components/cad-usuario/cad-usuario.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { BaseUiComponent } from './_components/base-ui/base-ui.component';
     FooterComponent,
     HomeComponent,
     BaseUiComponent,
+    CadUsuarioComponent,
 
   ],
   imports: [
