@@ -55,7 +55,7 @@ export class HomeComponent {
 
             // 1. Feche o modal:
             const modalElement = this.elementRef.nativeElement.querySelector('#staticBackdrop1');
-            $(modalElement).modal('hide');
+           
 
             // 3. Redirecione para a área logada:
             this.router.navigate(['/listar-disciplinas']);
