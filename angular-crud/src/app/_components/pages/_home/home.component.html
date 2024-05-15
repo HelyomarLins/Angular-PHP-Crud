@@ -11,11 +11,11 @@
             e o back-end em PHP cuidando das regras de negócio, APIs e banco de
             dados.
           </p>
-          <div
-            class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start" >
-            <a id="link-login" class="btn btn-primary btn-lg px-4 me-sm-3" href="#" routerLink="/home" (click)="openModal()">Acesse</a>
-            <a class="btn btn-outline-light btn-lg px-4" href="#!">Faça seu cadastro.</a>
-            <a id="link-login" class="btn btn-primary btn-lg px-4 me-sm-3" href="#" routerLink="/home" (click)="openModal()">Cadastre</a>
+          <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+              <!-- Botão para abrir o modal de acesso -->
+              <button class="btn btn-primary btn-lg px-4 me-sm-3" type="button" (click)="openModal('modalAcesso')">Acesse</button>
+              <!-- Botão para abrir o modal de cadastro -->
+              <button class="btn btn-outline-light btn-lg px-4" type="button" (click)="openModal('modalCadastro')">Cadastre-se</button>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
 </header>
 
 <!-- Modal CADASTRO-->
-<div class="modal fade" id="staticBackdrop1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+<div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
   <div class="modal-dialog d-flex justify-content-center">
     <div class="modal-content w-75">
       <div class="modal-header">
@@ -40,6 +40,7 @@
       </div>
       <div class="modal-body p-4">
         <form (ngSubmit)="submitUsuario()"> <!-- Aqui estamos chamando a função submitUsuario() quando o formulário é enviado -->
+
           <!-- Nome Usuario -->
           <div class="form-outline mb-4">
             <label class="form-label" for="nome_usu">Nome</label>
@@ -52,8 +53,8 @@
           </div>
           <!-- password CADASTRO -->
           <div class="form-outline mb-4">
-            <label class="form-label" for="password1">Senha</label>
-            <input type="password" id="password1" class="form-control" [(ngModel)]="senha" name="senha" />
+            <label class="form-label" for="pass_usu">Senha</label>
+            <input type="password" id="pass_usu" class="form-control" [(ngModel)]="senha" name="pass_usu" />
           </div>
           <!-- Submit CADASTRO -->
           <button type="submit" class="btn btn-primary btn-block" data-bs-dismiss="modal">Cadastrar</button>
@@ -63,12 +64,12 @@
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+<!-- Modal ACESSO-->
+<div class="modal fade" id="modalAcesso" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
   <div class="modal-dialog d-flex justify-content-center">
     <div class="modal-content w-75">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel1">Acessar</h5>
+        <h5 class="modal-title" id="exampleModalLabel2">Acesse</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-4">

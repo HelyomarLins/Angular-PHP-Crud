@@ -25,13 +25,19 @@ export class HomeComponent {
 
   // Método para abrir o modal
   openModal(modalId: string): void {
-    const modalElement = this.elementRef.nativeElement.querySelector('#staticBackdrop1');
+    const modalElement = this.elementRef.nativeElement.querySelector(`#${modalId}`);
     if (modalElement) {
       const modalInstance = new bootstrap.Modal(modalElement);
       modalInstance.show();
     } else {
       console.error('Modal element not found.');
     }
+  }
+
+
+  // SUBMIT USUARIO
+  submitUsuario():void{
+    console.log('Iniciando submitUsiario()')
   }
 
   // LÓGICA DO LOGIN DE ACESSO
