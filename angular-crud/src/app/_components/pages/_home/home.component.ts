@@ -35,10 +35,16 @@ export class HomeComponent {
   }
 
   // LÓGICA DO LOGIN DE ACESSO
-  submitLogin(email: string, senha: string): void {
-    console.log('iniciando submitLogin()');
+  submitLogin(): void {
+    console.log('Iniciando submitLogin()');
 
-    this.authService.login(email, senha)
+    // Verifica se os campos de e-mail e senha estão preenchidos
+    if (!this.email || !this.senha) {
+      this.mensagemErro = 'Por favor, preencha todos os campos.';
+      return;
+    }
+
+    this.authService.login(this.email, this.senha)
       .pipe(
         catchError(error => {
           // Trata erros HTTP aqui
@@ -61,34 +67,23 @@ export class HomeComponent {
       )
       .subscribe({
         next: (response) => {
-          console.log('Resposta da api', response);
+          console.log('Resposta da API:', response);
           if (response && response.message === 'Login successful') {
-            console.log('login bele');
+            console.log('Login bem-sucedido');
             alert('Login bem-sucedido');
-
-            // 1. Feche o modal:
-            const modalElement = this.elementRef.nativeElement.querySelector('#staticBackdrop1');
-            if (modalElement) {
-              const modalInstance = new bootstrap.Modal(modalElement);
-              modalInstance.hide(); // Use 'hide()' para fechar o modal
-            } else {
-              console.error('Modal element not found.');
-            }
-
-            // 3. Redirecione para a área logada:
+            // Redireciona para a área logada:
             this.router.navigate(['/listar-disciplinas']);
           } else {
-            // Lidar com outros tipos de resposta, se houver
             console.error('Erro no login:', response);
-            this.mensagemErro = 'Erro no login: ' + response.message;
+            this.mensagemErro = 'Erro no login: ' + (response ? response.message : 'Resposta nula do servidor.');
           }
         },
         error: (error) => {
           // Erro no login
-          console.log('erro na requisicao', error);
-          console.error('Erro no login:', error);
+          console.log('Erro na requisição:', error);
           this.mensagemErro = 'Erro no login. Verifique suas credenciais.';
         }
       });
   }
 }
+

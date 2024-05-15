@@ -6,13 +6,13 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 // Define o tipo de conteúdo permitido para a solicitação
 header("Access-Control-Allow-Headers: Content-Type");
 
-// conexao com banco de dados
+// Conexão com banco de dados
 require_once 'conexao.php';
 
 // Tratamento da requisição OPTIONS
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-  http_response_code(200);
-  exit();
+    http_response_code(200);
+    exit();
 }
 
 // Verifica se foi uma solicitação POST
@@ -39,17 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Consulta SQL para verificar as credenciais (usando consultas preparadas!)
-    $stmt = mysqli_prepare($conexao, "SELECT id_usu, nome_usu, nivel_usu FROM usuario WHERE email_usu = ?");
+    $stmt = mysqli_prepare($conexao, "SELECT id_usu, nome_usu, nivel_usu, pass_usu FROM usuario WHERE email_usu = ?");
     mysqli_stmt_bind_param($stmt, "s", $email);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-
-        // Verifica se a senha está correta (usando a função password_verify() para comparar senhas criptografadas!)
+        // Verifica se a senha está correta
         if (password_verify($senha, $row['pass_usu'])) {
-
             // Credenciais corretas
             http_response_code(200);
             echo json_encode(array(
@@ -58,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'nome_usu' => $row['nome_usu'],
                 'nivel_usu' => $row['nivel_usu']
             ));
-
         } else {
             // Senha incorreta
             http_response_code(401);
