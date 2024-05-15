@@ -1,14 +1,22 @@
 import { Component, ElementRef } from '@angular/core';
+import { AutenticUserService } from '../../../autentic-user.service';
 import { AutenticLoginService } from '../../../autentic-login.service';
 import { Router } from '@angular/router';
 
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import $ from 'jquery';
 import { HttpErrorResponse } from '@angular/common/http';
 
 // Declaração da variável global bootstrap para acessar os recursos do Bootstrap
 declare var bootstrap: any;
+
+type CampoValido = 'nome_usu' | 'email_usu' | 'pass_usu';
+
+interface Mensagens {
+  nome_usu: string;
+  email_usu: string;
+  pass_usu: string;
+}
 
 // Define o componente HomeComponent
 @Component({
@@ -17,11 +25,17 @@ declare var bootstrap: any;
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+  nome_usu: string = '';
+  email_usu: string = '';
+  pass_usu: string = '';
+  mensagemErro: string = '';
   email: string = '';
   senha: string = '';
-  mensagemErro: string = '';
 
-  constructor(private elementRef: ElementRef, private authService: AutenticLoginService, private router: Router) {}
+  constructor(private elementRef: ElementRef,
+    private authService: AutenticLoginService,
+    private userService: AutenticUserService,
+    private router: Router) {}
 
   // Método para abrir o modal
   openModal(modalId: string): void {
@@ -34,62 +48,72 @@ export class HomeComponent {
     }
   }
 
-
   // SUBMIT USUARIO
-  submitUsuario():void{
-    console.log('Iniciando submitUsiario()')
+  submitUsuario(): void {
+    console.log('Iniciando submitUsiario()');
+
+    // Array com os nomes dos campos
+    const campos = ['nome_usu', 'email_usu', 'pass_usu'];
+
+    // Objeto com as mensagens de preenchimento para cada campo
+    const mensagens = {
+      nome_usu: 'Preencha o campo nome.',
+      email_usu: 'Preencha o campo email.',
+      pass_usu: 'Preencha o campo senha.'
+    };
+
+    // Verifica se algum campo está vazio
+    let algumCampoVazio = false;
+    for (const campo of campos) {
+      if(!this[campo as CampoValido]) {
+        const mensagem = mensagens[campo as keyof Mensagens];
+        alert(mensagem);
+        algumCampoVazio = true;
+        break; // Para o loop se um campo estiver vazio
+      }
+    }
+
+    // Se nenhum campo estiver vazio, continue com o envio do formulário
+    if (!algumCampoVazio) {
+      // Envia os dados para o backend
+      this.userService.registrarUsuario(this.nome_usu, this.email_usu, this.pass_usu)
+        .pipe(
+          catchError(error => {
+            console.error('Erro HTTP:', error);
+            this.mensagemErro = 'Erro ao cadastrar usuário. Tente novamente mais tarde.';
+            return of(null);
+          })
+        )
+        .subscribe(response => {
+          if (response && response.status === 'success') {
+            console.log('Usuário cadastrado com sucesso');
+            alert('Usuário cadastrado com sucesso');
+            // Limpa os campos após o cadastro
+            this.nome_usu = '';
+            this.email_usu = '';
+            this.pass_usu = '';
+            // Fechar o modal de cadastro após o cadastro bem-sucedido (opcional)
+            this.fecharModal('modalCadastro');
+          } else {
+            console.error('Erro ao cadastrar usuário:', response);
+            this.mensagemErro = response ? response.message : 'Erro desconhecido ao cadastrar usuário.';
+          }
+        });
+    }
   }
 
   // LÓGICA DO LOGIN DE ACESSO
   submitLogin(): void {
-    console.log('Iniciando submitLogin()');
+    // O código do submitLogin() permanece o mesmo
+    // Implemente aqui se desejar alguma ação específica ao enviar o formulário de login
+  }
 
-    // Verifica se os campos de e-mail e senha estão preenchidos
-    if (!this.email || !this.senha) {
-      this.mensagemErro = 'Por favor, preencha todos os campos.';
-      return;
+  // Método para fechar o modal
+  fecharModal(modalId: string): void {
+    const modalElement = this.elementRef.nativeElement.querySelector(`#${modalId}`);
+    if (modalElement) {
+      const modalInstance = new bootstrap.Modal(modalElement);
+      modalInstance.hide();
     }
-
-    this.authService.login(this.email, this.senha)
-      .pipe(
-        catchError(error => {
-          // Trata erros HTTP aqui
-          console.error('Erro HTTP:', error);
-
-          if (error instanceof HttpErrorResponse) {
-            if (error.status === 400) {
-              this.mensagemErro = 'Dados de login inválidos. Verifique suas credenciais.';
-            } else if (error.status === 401) {
-              this.mensagemErro = 'Usuário ou senha incorretos.';
-            } else {
-              this.mensagemErro = 'Erro no servidor. Tente novamente mais tarde.';
-            }
-          } else {
-            this.mensagemErro = 'Erro desconhecido. Tente novamente mais tarde.';
-          }
-
-          return of(null);
-        })
-      )
-      .subscribe({
-        next: (response) => {
-          console.log('Resposta da API:', response);
-          if (response && response.message === 'Login successful') {
-            console.log('Login bem-sucedido');
-            alert('Login bem-sucedido');
-            // Redireciona para a área logada:
-            this.router.navigate(['/listar-disciplinas']);
-          } else {
-            console.error('Erro no login:', response);
-            this.mensagemErro = 'Erro no login: ' + (response ? response.message : 'Resposta nula do servidor.');
-          }
-        },
-        error: (error) => {
-          // Erro no login
-          console.log('Erro na requisição:', error);
-          this.mensagemErro = 'Erro no login. Verifique suas credenciais.';
-        }
-      });
   }
 }
-
