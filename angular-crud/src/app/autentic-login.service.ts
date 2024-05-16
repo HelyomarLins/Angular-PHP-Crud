@@ -10,6 +10,7 @@ export class AutenticLoginService {
   constructor(private http: HttpClient) { }
 
   login(email: string, senha: string): Observable<any> {
+    console.log('Serviço de Login - Iniciado login()');
     const url = 'http://localhost/Angular-Crud/Angular-PHP-Crud/angular-crud/API/login.usuario.php';
     const body = { email, senha };
     // Define os headers para indicar que estamos enviando JSON

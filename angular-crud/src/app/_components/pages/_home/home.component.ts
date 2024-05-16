@@ -121,14 +121,15 @@ closeModal(modalId: string): void {
     console.log('Iniciando submitLogin()');
     this.authService.login(this.email, this.senha)
       .subscribe(response => {
-        console.log('Resposta do servidor:', response);
+        console.log('HomeComponent Resposta do servidor:', response);
 
-        if (response && response.message === 'Login successful') {
+        if (response && response.success) {
           console.log('Login bem-sucedido');
           this.router.navigate(['/listar-disciplinas']);
+          console.log('HomeComponent Login bem-sucedido  - Depois do redirecionamento');
         } else {
           console.error('Erro ao realizar login:', response);
-          this.mensagemErro = response ? response.message : 'Erro desconhecido ao realizar login.';
+          this.mensagemErro = response.error || 'Erro desconhecido ao realizar login.';
         }
       });
   }
