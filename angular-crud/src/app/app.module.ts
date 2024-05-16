@@ -18,14 +18,13 @@ import { CrudModule } from './crud/crud.module'; // Corrigido o caminho da impor
     FooterComponent,
     HomeComponent,
     BaseUiComponent
-    // Remova os componentes CRUD daqui, pois eles pertencem ao CrudModule
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CrudModule
+    CrudModule // Importe o módulo CrudModule aqui
   ],
   providers: [],
   bootstrap: [AppComponent]
