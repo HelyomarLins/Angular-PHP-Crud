@@ -5,27 +5,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './_components/pages/navbar/navbar.component';
-import { FooterComponent } from './_components/pages/footer/footer.component';
 import { HomeComponent } from './_components/pages/_home/home.component';
-import { BaseUiComponent } from './_components/base-ui/base-ui.component';
-import { CrudModule } from '../crud/crud.module'; // Corrigido o caminho da importação
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    HomeComponent,
-    BaseUiComponent
-    // Não é necessário declarar os componentes CRUD aqui, pois eles são importados via CrudModule
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    CrudModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
