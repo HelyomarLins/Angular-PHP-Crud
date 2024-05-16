@@ -22,36 +22,43 @@ $data = json_decode(file_get_contents("php://input"), true);
 // Depuração: exibe os dados recebidos do frontend
 var_dump($data);
 
+// Retorna um JSON com os dados recebidos para depuração
+echo json_encode(['received_data' => $data]);
+
 // Verifica se todos os campos foram enviados
-if(empty($data['nome']) || empty($data['email']) || empty($data['senha'])) {
+if(empty($data['nome_usu']) || empty($data['email_usu']) || empty($data['pass_usu'])) {
     // Retorna um JSON com erro e status code 400 (Bad Request)
     http_response_code(400);
     echo json_encode(['message' => 'Todos os campos são obrigatórios', 'status' => 'error']);
     exit;
 }
 
-$nome_usu = $data['nome'];
-$email_usu = $data['email'];
-$pass_usu = $data['senha'];
+$nome_usu = $data['nome_usu'];
+$email_usu = $data['email_usu'];
+$pass_usu = $data['pass_usu'];
 $nivel_usu = 1; // Definido como 1 por padrão
 $ativo_usu = 'SIM'; // Definido como 'SIM' por padrão
 
-// Depuração: exibe os dados após a verificação dos campos
+// Depuração: exibe os dados antes da execução da consulta SQL
 echo "Nome: $nome_usu, Email: $email_usu, Senha: $pass_usu";
 
 $sql = "INSERT INTO usuario (nome_usu, email_usu, pass_usu, nivel_usu, ativo_usu)
         VALUES ('$nome_usu', '$email_usu', '$pass_usu', $nivel_usu, '$ativo_usu')";
 
-if (mysqli_query($conexao, $sql) === TRUE) {
+// Depuração: exibe a consulta SQL
+var_dump($sql);
 
+if (mysqli_query($conexao, $sql)) {
     // Sucesso: retorna um JSON com mensagem e status code 201 (Created)
     http_response_code(201);
     echo json_encode(['message' => 'Usuário cadastrado com sucesso!', 'status' => 'success']);
 } else {
     // Erro: retorna um JSON com erro e status code 500 (Internal Server Error)
     http_response_code(500);
-    echo json_encode(['message' => 'Erro ao cadastrar usuário: ' . $conexao->error, 'status' => 'error']);
+    echo json_encode(['message' => 'Erro ao cadastrar usuário: ' . mysqli_error($conexao), 'status' => 'error']);
 }
 
+// Depuração: exibe o resultado da execução da consulta SQL
+var_dump(mysqli_affected_rows($conexao));
+
 mysqli_close($conexao);
-?>

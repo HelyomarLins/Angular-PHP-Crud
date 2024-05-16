@@ -85,6 +85,7 @@ export class HomeComponent {
           })
         )
         .subscribe(response => {
+          console.log('Resposta do servidor:', response); // Adicionando log para depuração
           if (response && response.status === 'success') {
             console.log('Usuário cadastrado com sucesso');
             alert('Usuário cadastrado com sucesso');
@@ -93,12 +94,13 @@ export class HomeComponent {
             this.email_usu = '';
             this.pass_usu = '';
             // Fechar o modal de cadastro após o cadastro bem-sucedido (opcional)
-            this.fecharModal('modalCadastro');
+            this.closeModal('modalCadastro');
           } else {
             console.error('Erro ao cadastrar usuário:', response);
             this.mensagemErro = response ? response.message : 'Erro desconhecido ao cadastrar usuário.';
           }
         });
+
     }
   }
 
@@ -108,12 +110,14 @@ export class HomeComponent {
     // Implemente aqui se desejar alguma ação específica ao enviar o formulário de login
   }
 
-  // Método para fechar o modal
-  fecharModal(modalId: string): void {
+  //Metodo para fechar o modal
+  closeModal(modalId: string): void {
     const modalElement = this.elementRef.nativeElement.querySelector(`#${modalId}`);
     if (modalElement) {
       const modalInstance = new bootstrap.Modal(modalElement);
-      modalInstance.hide();
+       modalInstance.hide();
+     } else{
+	console.error('Modal element not found.');
     }
   }
 }

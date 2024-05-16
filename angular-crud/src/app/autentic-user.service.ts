@@ -11,9 +11,10 @@ export class AutenticUserService {
 
   constructor(private http: HttpClient) { }
 
-  registrarUsuario(nome: string, email: string, senha: string): Observable<any> {
+  registrarUsuario(nome_usu: string, email_usu: string, pass_usu: string): Observable<any> {
     const url = 'http://localhost/Angular-Crud/Angular-PHP-Crud/angular-crud/API/cad.usuario.php';
-    const body = {nome,  email, senha };
+    const body = { nome_usu, email_usu, pass_usu };
+
 
     // Define os headers para indicar que estamos enviando JSON
     const httpOptions = {
