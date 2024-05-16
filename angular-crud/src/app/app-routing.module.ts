@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent }, // Rota para HomeComponent
   { path: 'cadastrar-disciplina', component: CadastroDisciplinaComponent },
   { path: 'listar-disciplinas', component: ListaDisciplinaComponent },
-  { path: 'cad-usuario', component: CadUsuarioComponent }, 
+  { path: 'cad-usuario', component: CadUsuarioComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' } // Redireciona para HomeComponent
 ];
 
