@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,6 @@ export class AutenticUserService {
   registrarUsuario(nome_usu: string, email_usu: string, pass_usu: string): Observable<any> {
     const url = 'http://localhost/Angular-Crud/Angular-PHP-Crud/angular-crud/API/cad.usuario.php';
     const body = { nome_usu, email_usu, pass_usu };
-
 
     // Define os headers para indicar que estamos enviando JSON
     const httpOptions = {
@@ -38,7 +37,7 @@ export class AutenticUserService {
         `body foi: ${error.error}`);
     }
 
-    // retorna um Observable com um erro para que possa ser tratado pelo subscribe
-    return of(null); // ou throwError(error); para propagar o erro para a camada superior
+    // ou throwError(error); para propagar o erro para a camada superio
+    return throwError(error);
   }
 }

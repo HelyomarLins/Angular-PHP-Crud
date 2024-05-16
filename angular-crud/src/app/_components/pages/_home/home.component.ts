@@ -2,16 +2,14 @@ import { Component, ElementRef } from '@angular/core';
 import { AutenticUserService } from '../../../autentic-user.service';
 import { AutenticLoginService } from '../../../autentic-login.service';
 import { Router } from '@angular/router';
-
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 // Declaração da variável global bootstrap para acessar os recursos do Bootstrap
 declare var bootstrap: any;
 
 type CampoValido = 'nome_usu' | 'email_usu' | 'pass_usu';
-
 interface Mensagens {
   nome_usu: string;
   email_usu: string;
@@ -32,10 +30,12 @@ export class HomeComponent {
   email: string = '';
   senha: string = '';
 
-  constructor(private elementRef: ElementRef,
+  constructor(
+    private elementRef: ElementRef,
     private authService: AutenticLoginService,
     private userService: AutenticUserService,
-    private router: Router) {}
+    private router: Router
+  ) {}
 
   // Método para abrir o modal
   openModal(modalId: string): void {
@@ -47,6 +47,19 @@ export class HomeComponent {
       console.error('Modal element not found.');
     }
   }
+interface ModalId{
+  id: string;
+}
+ // Metodo para fechar o modal
+closeModal(modalId: ModalId): void {
+  const modalElement = this.elementRef.nativeElement.querySelector(`#${modalId}`);
+  if (modalElement) {
+    const modalInstance = new bootstrap.Modal(modalElement);
+    modalInstance.dispose(); // Fecha e remove o modal do DOM
+  } else {
+    console.error('Modal element not found.');
+  }
+}
 
   // SUBMIT USUARIO
   submitUsuario(): void {
@@ -65,7 +78,7 @@ export class HomeComponent {
     // Verifica se algum campo está vazio
     let algumCampoVazio = false;
     for (const campo of campos) {
-      if(!this[campo as CampoValido]) {
+      if (!this[campo as CampoValido]) {
         const mensagem = mensagens[campo as keyof Mensagens];
         alert(mensagem);
         algumCampoVazio = true;
@@ -77,47 +90,48 @@ export class HomeComponent {
     if (!algumCampoVazio) {
       // Envia os dados para o backend
       this.userService.registrarUsuario(this.nome_usu, this.email_usu, this.pass_usu)
-        .pipe(
-          catchError(error => {
+        .subscribe({
+          next: (response) => {
+            console.log('Resposta do servidor:', response);
+
+            if (response && response.status === 'success') {
+              console.log('Usuário cadastrado com sucesso');
+              alert('Usuário cadastrado com sucesso');
+
+              // Limpa os campos após o cadastro
+              this.nome_usu = '';
+              this.email_usu = '';
+              this.pass_usu = '';
+
+              // Fechar o modal de cadastro após o cadastro bem-sucedido
+              this.closeModal({id: modalCadastro});
+            } else {
+              console.error('Erro ao cadastrar usuário:', response);
+              this.mensagemErro = response ? response.message : 'Erro desconhecido ao cadastrar usuário.';
+            }
+          },
+          error: (error) => {
             console.error('Erro HTTP:', error);
             this.mensagemErro = 'Erro ao cadastrar usuário. Tente novamente mais tarde.';
-            return of(null);
-          })
-        )
-        .subscribe(response => {
-          console.log('Resposta do servidor:', response); // Adicionando log para depuração
-          if (response && response.status === 'success') {
-            console.log('Usuário cadastrado com sucesso');
-            alert('Usuário cadastrado com sucesso');
-            // Limpa os campos após o cadastro
-            this.nome_usu = '';
-            this.email_usu = '';
-            this.pass_usu = '';
-            // Fechar o modal de cadastro após o cadastro bem-sucedido (opcional)
-            this.closeModal('modalCadastro');
-          } else {
-            console.error('Erro ao cadastrar usuário:', response);
-            this.mensagemErro = response ? response.message : 'Erro desconhecido ao cadastrar usuário.';
           }
         });
-
     }
   }
 
   // LÓGICA DO LOGIN DE ACESSO
   submitLogin(): void {
-    // O código do submitLogin() permanece o mesmo
-    // Implemente aqui se desejar alguma ação específica ao enviar o formulário de login
-  }
+    console.log('Iniciando submitLogin()');
+    this.authService.login(this.email, this.senha)
+      .subscribe(response => {
+        console.log('Resposta do servidor:', response);
 
-  //Metodo para fechar o modal
-  closeModal(modalId: string): void {
-    const modalElement = this.elementRef.nativeElement.querySelector(`#${modalId}`);
-    if (modalElement) {
-      const modalInstance = new bootstrap.Modal(modalElement);
-       modalInstance.hide();
-     } else{
-	console.error('Modal element not found.');
-    }
+        if (response && response.message === 'Login successful') {
+          console.log('Login bem-sucedido');
+          this.router.navigate(['/listar-disciplinas']);
+        } else {
+          console.error('Erro ao realizar login:', response);
+          this.mensagemErro = response ? response.message : 'Erro desconhecido ao realizar login.';
+        }
+      });
   }
 }

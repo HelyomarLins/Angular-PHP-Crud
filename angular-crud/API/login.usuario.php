@@ -1,8 +1,11 @@
 <?php
+
 // Permite solicitações de qualquer origem
 header("Access-Control-Allow-Origin: *");
+
 // Permite solicitações com os métodos GET, POST, PUT, DELETE e OPTIONS
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+
 // Define o tipo de conteúdo permitido para a solicitação
 header("Access-Control-Allow-Headers: Content-Type");
 
@@ -17,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 // Verifica se foi uma solicitação POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     // Recebe os dados de login do corpo da requisição
     $data = json_decode(file_get_contents('php://input'), true);
 
@@ -46,8 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        // Verifica se a senha está correta
-        if (password_verify($senha, $row['pass_usu'])) {
+
+        // Compara a senha enviada com a senha armazenada no banco de dados
+        if ($senha === $row['pass_usu']) {
             // Credenciais corretas
             http_response_code(200);
             echo json_encode(array(
@@ -66,10 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         http_response_code(401);
         echo json_encode(array('message' => 'Invalid credentials'));
     }
-
 } else {
     // Método de requisição não suportado
     http_response_code(405);
     echo json_encode(array('message' => 'Method Not Allowed'));
 }
+
 ?>

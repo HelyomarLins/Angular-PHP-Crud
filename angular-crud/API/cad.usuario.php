@@ -19,15 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 // Converte o JSON para um array associativo
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Depuração: exibe os dados recebidos do frontend
-var_dump($data);
-
-// Retorna um JSON com os dados recebidos para depuração
-echo json_encode(['received_data' => $data]);
-
 // Verifica se todos os campos foram enviados
 if(empty($data['nome_usu']) || empty($data['email_usu']) || empty($data['pass_usu'])) {
-    // Retorna um JSON com erro e status code 400 (Bad Request)
+
+  // Retorna um JSON com erro e status code 400 (Bad Request)
     http_response_code(400);
     echo json_encode(['message' => 'Todos os campos são obrigatórios', 'status' => 'error']);
     exit;
@@ -39,14 +34,8 @@ $pass_usu = $data['pass_usu'];
 $nivel_usu = 1; // Definido como 1 por padrão
 $ativo_usu = 'SIM'; // Definido como 'SIM' por padrão
 
-// Depuração: exibe os dados antes da execução da consulta SQL
-echo "Nome: $nome_usu, Email: $email_usu, Senha: $pass_usu";
-
 $sql = "INSERT INTO usuario (nome_usu, email_usu, pass_usu, nivel_usu, ativo_usu)
         VALUES ('$nome_usu', '$email_usu', '$pass_usu', $nivel_usu, '$ativo_usu')";
-
-// Depuração: exibe a consulta SQL
-var_dump($sql);
 
 if (mysqli_query($conexao, $sql)) {
     // Sucesso: retorna um JSON com mensagem e status code 201 (Created)
@@ -57,8 +46,5 @@ if (mysqli_query($conexao, $sql)) {
     http_response_code(500);
     echo json_encode(['message' => 'Erro ao cadastrar usuário: ' . mysqli_error($conexao), 'status' => 'error']);
 }
-
-// Depuração: exibe o resultado da execução da consulta SQL
-var_dump(mysqli_affected_rows($conexao));
 
 mysqli_close($conexao);
