@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CadastroDisciplinaComponent } from './_components/cad-disciplina/cad-disciplina.component';
-import { ListaDisciplinaComponent } from './_components/listar-disciplina/listar-disciplina.component';
 import { HomeComponent } from './_components/pages/_home/home.component';
-import { CadUsuarioComponent } from './_components/cad-usuario/cad-usuario.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent }, // Rota para HomeComponent
-  { path: 'cadastrar-disciplina', component: CadastroDisciplinaComponent },
-  { path: 'listar-disciplinas', component: ListaDisciplinaComponent },
-  { path: 'cad-usuario', component: CadUsuarioComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' } // Redireciona para HomeComponent
+  { path: '', component: HomeComponent }, // Rota para HomeComponent (página inicial)
+  {
+    path: 'crud',
+    loadChildren: () => import('./crud/crud.module').then(m => m.CrudModule)
+  }
 ];
 
 @NgModule({
