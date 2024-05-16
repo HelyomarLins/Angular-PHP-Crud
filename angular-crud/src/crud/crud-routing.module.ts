@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../app/_components/pages/_home/home.component';
-import { CrudComponent } from './crud.component';
+
+// Importe os componentes das funcionalidades CRUD
+import { ListaDisciplinaComponent } from './listar-disciplina/listar-disciplina.component';
+import { CadastroDisciplinaComponent } from './cad-disciplina/cad-disciplina.component';
 
 const routes: Routes = [
-  {
-    path: 'crud',
-    component: CrudComponent, 
-    children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent },
-    ]
-  }
+  // Rotas filhas do CrudModule
+  { path: 'listar-disciplina', component: ListaDisciplinaComponent },
+  { path: 'cadastrar-disciplina', component: CadastroDisciplinaComponent },
+  // ... outras rotas
 ];
 
 @NgModule({
