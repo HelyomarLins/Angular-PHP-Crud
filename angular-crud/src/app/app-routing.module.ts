@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent }, // Rota para HomeComponent (página inicial)
   {
     path: 'crud',
-    loadChildren: () => import('./crud/crud.module').then(m => m.CrudModule)
+    loadChildren: () => import('../crud/crud.module').then(m => m.CrudModule)
   }
 ];
 

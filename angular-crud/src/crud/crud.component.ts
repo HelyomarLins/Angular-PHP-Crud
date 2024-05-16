@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-crud',
   templateUrl: './crud.component.html',
-  styleUrl: './crud.component.scss'
+  styleUrls: ['./crud.component.scss'] // Ajuste feito aqui de 'styleUrl' para 'styleUrls'
 })
-export class CRUDComponent {
+export class CrudComponent { // Ajuste feito aqui de 'CRUDComponent' para 'CrudComponent'
 
 }

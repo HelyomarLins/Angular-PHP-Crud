@@ -125,7 +125,7 @@ closeModal(modalId: string): void {
 
         if (response && response.success) {
           console.log('Login bem-sucedido');
-          this.router.navigate(['/listar-disciplinas']);
+          this.router.navigate(['/crud']);
           console.log('HomeComponent Login bem-sucedido  - Depois do redirecionamento');
         } else {
           console.error('Erro ao realizar login:', response);

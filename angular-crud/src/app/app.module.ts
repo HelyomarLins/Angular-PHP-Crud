@@ -9,7 +9,7 @@ import { NavbarComponent } from './_components/pages/navbar/navbar.component';
 import { FooterComponent } from './_components/pages/footer/footer.component';
 import { HomeComponent } from './_components/pages/_home/home.component';
 import { BaseUiComponent } from './_components/base-ui/base-ui.component';
-import { CrudModule } from './crud/crud.module'; // Corrigido o caminho da importação
+import { CrudModule } from '../crud/crud.module'; // Corrigido o caminho da importação
 
 @NgModule({
   declarations: [
@@ -18,13 +18,14 @@ import { CrudModule } from './crud/crud.module'; // Corrigido o caminho da impor
     FooterComponent,
     HomeComponent,
     BaseUiComponent
+    // Não é necessário declarar os componentes CRUD aqui, pois eles são importados via CrudModule
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    CrudModule // Importe o módulo CrudModule aqui
+    CrudModule
   ],
   providers: [],
   bootstrap: [AppComponent]
