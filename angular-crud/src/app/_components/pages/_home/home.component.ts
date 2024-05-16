@@ -47,11 +47,9 @@ export class HomeComponent {
       console.error('Modal element not found.');
     }
   }
-interface ModalId{
-  id: string;
-}
+
  // Metodo para fechar o modal
-closeModal(modalId: ModalId): void {
+closeModal(modalId: string): void {
   const modalElement = this.elementRef.nativeElement.querySelector(`#${modalId}`);
   if (modalElement) {
     const modalInstance = new bootstrap.Modal(modalElement);
@@ -104,7 +102,7 @@ closeModal(modalId: ModalId): void {
               this.pass_usu = '';
 
               // Fechar o modal de cadastro após o cadastro bem-sucedido
-              this.closeModal({id: modalCadastro});
+              this.closeModal('modalCadastro');
             } else {
               console.error('Erro ao cadastrar usuário:', response);
               this.mensagemErro = response ? response.message : 'Erro desconhecido ao cadastrar usuário.';
