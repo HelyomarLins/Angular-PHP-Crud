@@ -4,6 +4,7 @@ import { CrudComponent } from './crud.component';
 // Importe os componentes das funcionalidades CRUD
 import { ListaDisciplinaComponent } from './listar-disciplina/listar-disciplina.component';
 import { CadastroDisciplinaComponent } from './cad-disciplina/cad-disciplina.component';
+import { ListarAlunosComponent } from './listar-alunos/listar-alunos.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
   children: [
       // Rotas filhas do CrudModule
       { path: 'listar-disciplina', component: ListaDisciplinaComponent },
+      { path: 'listar-alunos', component: ListarAlunosComponent},
       { path: 'cadastrar-disciplina', component: CadastroDisciplinaComponent },
       // ... outras rotas
       //{ path: 'produtos', component: '' }, // Substitua ProdutosComponent pelo componente correto

@@ -9,6 +9,7 @@ import { NavbarComponent } from '../app/_components/pages/navbar/navbar.componen
 import { BaseUiComponent } from '../app/_components/base-ui/base-ui.component';
 import { FooterComponent } from '../app/_components/pages/footer/footer.component';
 import { BotoesCrudComponent } from './botoes-crud/botoes-crud.component';
+import { ListarAlunosComponent } from './listar-alunos/listar-alunos.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { BotoesCrudComponent } from './botoes-crud/botoes-crud.component';
     NavbarComponent,
     BaseUiComponent,
     FooterComponent,
-    BotoesCrudComponent
+    BotoesCrudComponent,
+    ListarAlunosComponent
   ],
   imports: [
     CommonModule,
