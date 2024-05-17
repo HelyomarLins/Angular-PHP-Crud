@@ -9,7 +9,7 @@ import { NavbarComponent } from '../app/_components/pages/navbar/navbar.componen
 import { BaseUiComponent } from '../app/_components/base-ui/base-ui.component';
 import { FooterComponent } from '../app/_components/pages/footer/footer.component';
 import { BotoesCrudComponent } from './botoes-crud/botoes-crud.component';
-import { ListarAlunosComponent } from './listar-alunos/listar-alunos.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,18 +18,21 @@ import { ListarAlunosComponent } from './listar-alunos/listar-alunos.component';
     BaseUiComponent,
     FooterComponent,
     BotoesCrudComponent,
-    ListarAlunosComponent
   ],
   imports: [
     CommonModule,
-    FormsModule, 
+    FormsModule,
     HttpClientModule,
-    CrudRoutingModule
+    CrudRoutingModule,
+    RouterModule
   ],
   exports: [
+    CrudComponent,
     NavbarComponent,
     BaseUiComponent,
-    FooterComponent
+    FooterComponent,
+    BotoesCrudComponent,
+    RouterModule
   ]
 })
 export class CrudModule { }

@@ -12,9 +12,12 @@ export class ListarAlunosComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost/Angular-Crud/Angular-PHP-Crud/angular-crud/API/listar_alunos.php') // Corrija o caminho para a API
-      .subscribe(data => {
-        this.alunos = data;
+    this.http.get('http://localhost/Angular-Crud/Angular-PHP-Crud/angular-crud/API/listar_alunos.php')
+      .subscribe((data: any) => {
+
+        // Acessa o array 'alunos' dentro do objeto 'data'
+        this.alunos = data.alunos;
+        console.log(this.alunos);
       });
   }
 }
