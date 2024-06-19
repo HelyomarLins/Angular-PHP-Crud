@@ -1,3 +1,7 @@
+meu codigo é este...
+eu quero usar ele.. Está funcionando em outra aplicação
+pode ser...
+
 import { Component, ElementRef } from '@angular/core';
 import { AutenticUserService } from '../../../autentic-user.service';
 import { AutenticLoginService } from '../../../autentic-login.service';
